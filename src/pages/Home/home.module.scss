@@ -1,0 +1,36 @@
+@use '../../style/mixin.scss' as mixin;
+
+.container {
+    @include mixin.container;
+    padding-top: 75px;
+    padding-bottom: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    // @include mixin.tablet {
+    //     flex-direction: row-reverse;
+    // }
+}
+
+.navLink{
+    border: 1px solid black;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    width: 100%;
+    padding: 30px 0;
+
+}
+// .leftPart {
+//     width: 100%;
+//     padding-top: 25px;
+
+//     @include mixin.tablet {
+//         width: 50%;
+//         padding-top: 25px;
+//     }
+// }
+
