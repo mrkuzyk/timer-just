@@ -24,6 +24,12 @@ const Home = () => {
             >
                 My Timers
             </NavLink>
+            <NavLink
+                to='/experiment'
+                className={s.navLink}
+            >
+                Exp
+            </NavLink>
         </div>
     );
 }

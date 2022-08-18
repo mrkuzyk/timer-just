@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { addLeadingZero, getAllTimers, getTimeUnits } from 'helpers';
+import { addLeadingZero, getTimeUnits } from 'helpers';
 import s from './oneTimer.module.scss'
 
 const OneTimer = () => {
-    const [timers] = useState(() => getAllTimers); // лінива ініціалізація
+    const [timers] = useState(() => JSON.parse(localStorage.getItem('timers'))); // лінива ініціалізація
     const { id } = useParams();
     const [time, setTime] = useState('');
     const [name, setName] = useState('');

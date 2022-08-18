@@ -1,12 +1,11 @@
 
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { getAllTimers } from "helpers";
 import s from './timersList.module.scss';
 
 
 const TimersList = () => {
-    const [timers] = useState(() => getAllTimers);
+    const [timers] = useState(() => JSON.parse(localStorage.getItem('timers')));
 
     return (
         <div>

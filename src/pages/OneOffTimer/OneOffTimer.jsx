@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { addLeadingZero, getOneOffTimer, getTimeUnits } from 'helpers';
+import { addLeadingZero, getTimeUnits } from 'helpers';
 import s from './oneOffTimer.module.scss'
 
 const OneOffTimer = () => {
-    const [timer] = useState(() => getOneOffTimer ?? '');
+    const [timer] = useState(() => JSON.parse(localStorage.getItem('tempTimer')) ?? '');
     const [time, setTime] = useState('');
     const [name, setName] = useState('');
     const [hours, setHours] = useState('');
@@ -12,7 +12,7 @@ const OneOffTimer = () => {
     const [seconds, setSeconds] = useState('');
     const [runTimer, setRunTimer] = useState(false);
     
-    // console.log(name);
+    console.log(timer);
     const intervalId = useRef(null);
 
     useEffect(() => {

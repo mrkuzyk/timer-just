@@ -43,7 +43,7 @@ const CreatedTimer = () => {
     };
 
     useEffect(() => {
-        const timeSum = getTimeSum({ seconds, hours, minutes });
+        const timeSum = getTimeSum(seconds, minutes, hours);
         setSum(timeSum);
     },[hours, minutes, seconds])
 
@@ -59,7 +59,17 @@ const CreatedTimer = () => {
         // додаю новий таймер
         setTimers(prevState => [...timers, timer])
         reset();
-    }
+    };
+
+    useEffect(() => {
+        // записую в локал сторедж контакти
+        window.localStorage.setItem('timers', JSON.stringify(timers))
+    }, [timers]);
+    
+    useEffect(() => {
+        // записую в локал сторедж контакти
+        window.localStorage.setItem('tempTimer', JSON.stringify(tempTimer))
+    }, [tempTimer]);
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -85,16 +95,6 @@ const CreatedTimer = () => {
         setSeconds('');
         setSum('');
     };
-
-    useEffect(() => {
-        // записую в локал сторедж контакти
-        window.localStorage.setItem('timers', JSON.stringify(timers))
-    }, [timers])
-    
-    useEffect(() => {
-        // записую в локал сторедж контакти
-        window.localStorage.setItem('tempTimer', JSON.stringify(tempTimer))
-    },[tempTimer])
 
     const homes = () => {
         setHome(true);
@@ -126,7 +126,7 @@ const CreatedTimer = () => {
                             name="hours"
                             value={hours}
                             min="0"
-                            max="24"
+                            max="23"
                             pattern="[0-9]{2}"
                             onChange={handleChange}
                             placeholder="00"
@@ -140,7 +140,7 @@ const CreatedTimer = () => {
                             name="minutes"
                             value={minutes}
                             min="0"
-                            max="60"
+                            max="59"
                             onChange={handleChange}
                             placeholder="00"
                             className={s.input}
@@ -153,7 +153,7 @@ const CreatedTimer = () => {
                             name="seconds"
                             value={seconds}
                             min="0"
-                            max="60"
+                            max="59"
                             onChange={handleChange}
                             placeholder="00"
                             className={s.input}
