@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { getAllTimers, getTimeSum } from 'helpers';
+import { getTimeSum } from 'helpers';
 import s from './createdTimer.module.scss';
 
 const CreatedTimer = () => {
-    const [timers, setTimers] = useState(() => getAllTimers ?? []); // лінива ініціалізація
+    const [timers, setTimers] = useState(() => JSON.parse(localStorage.getItem('timers')) ?? []); // лінива ініціалізація
     const [tempTimer, setTempTimer] = useState('')
     const [name, setName] = useState('');
     const [hours, setHours] = useState('');
