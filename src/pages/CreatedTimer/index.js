@@ -1,3 +1,3 @@
-import CreatedTimer from "./CreatedTimer";
+import CreateTimer from './CreateTimers';
 
-export default CreatedTimer;
+export default CreateTimer;

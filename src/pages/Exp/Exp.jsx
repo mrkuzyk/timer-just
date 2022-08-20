@@ -5,9 +5,10 @@ import s from './exp.module.scss'
 
 const Exp = () => {
     const [timer] = useState(() => JSON.parse(localStorage.getItem('tempTimerExp')) ?? '');
+    const [name, setName] = useState('');
+
     const [timeWork, setTimeWork] = useState('');
     const [timeRest, setTimeRest] = useState('');
-    const [name, setName] = useState('');
 
     const [workHours, setWorkHours] = useState('');
     const [workMinutes, setWorkMinutes] = useState('');
@@ -16,11 +17,12 @@ const Exp = () => {
     const [restMinutes, setRestMinutes] = useState('');
     const [restSeconds, setRestSeconds] = useState('');
 
-    const [runTimer, setRunTimer] = useState(false);
+    const [employWorkTimer, setEmployWorkTimer] = useState(false);
+    const [employRestTimer, setEmployRestTimer] = useState(false);
 
-    // console.log(timeRest);
-    
-    // console.log(name);
+    // const [firstRenderWork, setFirstRenderWork] = useState(true);
+    // const [firstRenderRest, setFirstRenderRest] = useState(true);
+
     const intervalId = useRef(null);
 
     useEffect(() => {
@@ -44,35 +46,49 @@ const Exp = () => {
     }, [timeRest])
 
     useEffect(() => {
-        if (!runTimer) return;
+        if (!employWorkTimer) return;
 
         // робочий таймер
         intervalId.current = setInterval(() => {
-        setTimeWork(state => state - 1)
+            setTimeWork(state => state - 1)
         }, 1000);
-    }, [runTimer])
+    }, [employWorkTimer]);
 
     useEffect(() => {
-        if (!runTimer) return;
+        if (timeWork === 0) {
+            stopTimer();
+            setEmployRestTimer(true);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [timeWork]);
+
+    useEffect(() => {
+        if (!employRestTimer) return;
 
         //відпочинковий таймер
         intervalId.current = setInterval(() => {
         setTimeRest(state => state - 1)
         }, 1000);
-    }, [runTimer])
+    }, [employRestTimer])
+
+    useEffect(() => {
+        if (timeRest === 0) stopTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [timeRest]);
 
     const startTimer = () => {
-        setRunTimer(true);
+        if (timeWork !== 0) { setEmployWorkTimer(true) };
+        if (timeRest !== 0) { setEmployWorkTimer(true) };
+        if (timeWork === 0) { setEmployRestTimer(true) };
     };
 
     const stopTimer = () => {
         clearInterval(intervalId.current);
-        setRunTimer(false);
-    }
-
-    useEffect(() => {
-        if (timeWork === 0) stopTimer();
-    }, [timeWork])
+        setEmployWorkTimer(false);
+        if (timeWork === 0) {
+            setEmployRestTimer(false)
+        };
+    };
 
     // console.log(hours);
     return (
@@ -92,8 +108,8 @@ const Exp = () => {
                         <p className={s.time} >{restSeconds} </p>
                     </div>
                     <p >{name} </p>
-                    {!runTimer && <button type='button' onClick={startTimer}>start</button>}
-                    {runTimer && <button type='button' onClick={stopTimer}>pause</button>}
+                    {  <button type='button' onClick={startTimer}>start</button>}
+                    {  <button type='button' onClick={stopTimer}>pause</button>}
                 </>
                 :
                 <h1>НЕМА</h1>

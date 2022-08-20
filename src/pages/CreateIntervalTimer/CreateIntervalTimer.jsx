@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { getTimeSum } from 'helpers';
-import s from './experiment.module.scss';
+import s from './createIntervalTimer.module.scss';
 
 const Experiment = () => {
     const [timers, setTimers] = useState(() => JSON.parse(localStorage.getItem('exp')) ?? []); // лінива ініціалізація
@@ -21,7 +21,7 @@ const Experiment = () => {
     const [workSum, setWorkSum] = useState('');
     const [restSum, setRestSum] = useState('');
 
-    console.log(restSum);
+    // console.log(restSum);
 
     const handleChange = e => {
         const { name, value } = e.currentTarget; // отримую значення з інпуту

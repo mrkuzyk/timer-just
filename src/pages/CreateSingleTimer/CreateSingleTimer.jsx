@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { getTimeSum } from 'helpers';
-import s from './createdTimer.module.scss';
+import s from './createSingleTimer.module.scss';
 
-const CreatedTimer = () => {
+const CreateSingleTimer = () => {
     const [timers, setTimers] = useState(() => JSON.parse(localStorage.getItem('timers')) ?? []); // лінива ініціалізація
     const [tempTimer, setTempTimer] = useState('')
     const [name, setName] = useState('');
@@ -14,7 +14,8 @@ const CreatedTimer = () => {
     const [startTimer, setStartTimer] = useState(false);
     const [home, setHome] = useState('');
     const [sum, setSum] = useState('');
-    // console.dir(hours)
+    const [saveTimer, setSaveTimer] = useState(false);
+    // console.log('set', saveTimer)
 
     const handleChange = e => {
         const { name, value } = e.currentTarget; // отримую значення з інпуту
@@ -36,42 +37,36 @@ const CreatedTimer = () => {
             case 'seconds':
                 setSeconds(value);
                 break;
+
+            case 'saveTimer':
+                setSaveTimer(value);
+                break;
         
             default:
                 break;
         };
     };
 
-    useEffect(() => {
-        const timeSum = getTimeSum(seconds, minutes, hours);
-        setSum(timeSum);
-    },[hours, minutes, seconds])
-
     const handleSave = e => {
-        e.preventDefault();
-
-        const timer = {
-            id: nanoid(6),
-            name,
-            sum,
-        }
-
-        // додаю новий таймер
-        setTimers(prevState => [...timers, timer])
-        reset();
+        setSaveTimer(prevState => !prevState)
     };
 
     useEffect(() => {
-        // записую в локал сторедж контакти
+        const timeSum = getTimeSum(seconds, minutes, hours);
+        setSum(timeSum);
+    },[hours, minutes, seconds]);
+
+    useEffect(() => {
+        // записую в локал сторедж таймери
         window.localStorage.setItem('timers', JSON.stringify(timers))
     }, [timers]);
     
     useEffect(() => {
-        // записую в локал сторедж контакти
+        // записую в локал сторедж тимчасовий таймер
         window.localStorage.setItem('tempTimer', JSON.stringify(tempTimer))
     }, [tempTimer]);
 
-    const handleCreate = (e) => {
+    const handleCreate = e => {
         e.preventDefault();
 
         const timer = {
@@ -80,12 +75,15 @@ const CreatedTimer = () => {
             sum,
         }
 
-        // додаю таймер в сторедж
-        setTempTimer(timer)
-        setStartTimer(true)
-        reset();
+        if(saveTimer){
+        // додаю новий таймер
+        setTimers(prevState => [...timers, timer]);
+        };
 
-    }
+        setTempTimer(timer);
+        setStartTimer(true);
+        reset();
+    };
 
     const reset = () => {
         // очищую імпути
@@ -104,7 +102,7 @@ const CreatedTimer = () => {
         <>
             {startTimer && <Navigate to={`/one-time/${tempTimer.id}`} replace={true} />}
             {home && <Navigate to={`/`} replace={true} />}
-            <form onSubmit={handleSave} className={s.form}>
+            <form onSubmit={handleCreate} className={s.form}>
                 <div className={s.inputBox}>
                     <div>
                         <label>
@@ -161,16 +159,23 @@ const CreatedTimer = () => {
                         />
                     </label>
                 </div>
+                <label> Зберегти
+                    <input 
+                        type="checkbox"
+                        name="handleChange"
+                        checked={saveTimer}
+                        onChange={handleSave }
+                    />
+                </label>
                 <div className={s.btnBox}>
                     <button type="button" onClick={homes}>Home</button>
-                    {sum !== 0 && <button type="submit" className={s.button}>Зберегти</button>}
-                    {sum !== 0 && <button type="submit" className={s.button} onClick={handleCreate}>Створити</button>}
+                    {sum !== 0 && <button type="submit" className={s.button}>Створити</button>}
+                    {/* {sum !== 0 && <button type="submit" className={s.button} onClick={handleCreate}>Створити</button>} */}
                 </div>
             </form>
             <h2>{ hours} - {minutes} - {seconds} - {sum} </h2>
         </>
-        
     );
 };
 
-export default CreatedTimer;
+export default CreateSingleTimer;
