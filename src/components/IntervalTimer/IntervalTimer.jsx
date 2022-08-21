@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { addLeadingZero, getTimeUnits } from 'helpers';
-import s from './exp.module.scss'
+import s from './intervalTimer.module.scss';
 
-const Exp = () => {
-    const [timer] = useState(() => JSON.parse(localStorage.getItem('tempTimerExp')) ?? '');
+const IntervalTimer = ({data}) => {
+    const [timer, setTimer] = useState({});
     const [name, setName] = useState('');
 
     const [timeWork, setTimeWork] = useState('');
@@ -17,13 +17,15 @@ const Exp = () => {
     const [restMinutes, setRestMinutes] = useState('');
     const [restSeconds, setRestSeconds] = useState('');
 
-    const [employWorkTimer, setEmployWorkTimer] = useState(false);
-    const [employRestTimer, setEmployRestTimer] = useState(false);
-
-    // const [firstRenderWork, setFirstRenderWork] = useState(true);
-    // const [firstRenderRest, setFirstRenderRest] = useState(true);
+    const [applyWorkTimer, setApplyWorkTimer] = useState(false);
+    const [applyRestTimer, setApplyRestTimer] = useState(false);
 
     const intervalId = useRef(null);
+    const timerIsRunning = applyWorkTimer || applyRestTimer;
+
+    useEffect(() => {
+        setTimer(data)
+    }, [data]);
 
     useEffect(() => {
         setTimeWork(timer.workSum); // отримую суму часу роботи
@@ -46,51 +48,46 @@ const Exp = () => {
     }, [timeRest])
 
     useEffect(() => {
-        if (!employWorkTimer) return;
+        if (!applyWorkTimer) return; // виключаю запуск одразу при рендері
 
-        // робочий таймер
         intervalId.current = setInterval(() => {
-            setTimeWork(state => state - 1)
+            setTimeWork(state => state - 1); // таймер для робочого часу
         }, 1000);
-    }, [employWorkTimer]);
+    }, [applyWorkTimer]);
 
     useEffect(() => {
         if (timeWork === 0) {
-            stopTimer();
-            setEmployRestTimer(true);
+            stopTimer(); // автоматичне вимкнення таймера при закінченні часу
+            setApplyRestTimer(true); // якщо робочий час закінчився, то автоматично вмикається відпочинок
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeWork]);
 
     useEffect(() => {
-        if (!employRestTimer) return;
+        if (!applyRestTimer) return; // виключаю запуск одразу при рендері
 
         //відпочинковий таймер
         intervalId.current = setInterval(() => {
-        setTimeRest(state => state - 1)
+            setTimeRest(state => state - 1); // таймер для відпочинку
         }, 1000);
-    }, [employRestTimer])
+    }, [applyRestTimer])
 
     useEffect(() => {
-        if (timeRest === 0) stopTimer();
+        if (timeRest === 0) { stopTimer() };
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeRest]);
 
     const startTimer = () => {
-        if (timeWork !== 0) { setEmployWorkTimer(true) };
-        if (timeRest !== 0) { setEmployWorkTimer(true) };
-        if (timeWork === 0) { setEmployRestTimer(true) };
+        if (timeWork !== 0) { setApplyWorkTimer(true) }; // якщо є робочий час то тільки тоді можна запустити його і не дозволяю йти в мінус
+        if (timeWork === 0  && timeRest !== 0) { setApplyRestTimer(true) }; // дозволяю відновлювати відпочинок тільки коли нема робочого часу
     };
 
     const stopTimer = () => {
         clearInterval(intervalId.current);
-        setEmployWorkTimer(false);
-        if (timeWork === 0) {
-            setEmployRestTimer(false)
-        };
+        setApplyWorkTimer(false); // зупиняю таймер
+        if (timeWork === 0) { setApplyRestTimer(false) }; // якщо робочий час === 0, то тільки тоді можна зупитяти відпочинок
     };
 
-    // console.log(hours);
     return (
         <div>
             {timer
@@ -108,16 +105,15 @@ const Exp = () => {
                         <p className={s.time} >{restSeconds} </p>
                     </div>
                     <p >{name} </p>
-                    {  <button type='button' onClick={startTimer}>start</button>}
-                    {  <button type='button' onClick={stopTimer}>pause</button>}
+                    {!timerIsRunning &&  <button type='button' onClick={startTimer}>start</button>}
+                    {timerIsRunning &&  <button type='button' onClick={stopTimer}>pause</button>}
                 </>
                 :
                 <h1>НЕМА</h1>
             }
-            {/* <Link to={`/timers`} className={s.link}> Timers </Link> */}
             <Link to={`/home`} className={s.link}> home </Link>
         </div>
     );
 };
 
-export default Exp;
+export default IntervalTimer;

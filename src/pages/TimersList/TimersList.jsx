@@ -1,8 +1,8 @@
 
+import TimerTypeDefinition from "components/TimerTypeDefinition";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import s from './timersList.module.scss';
-
 
 const TimersList = () => {
     const [timers] = useState(() => JSON.parse(localStorage.getItem('timers')));
@@ -12,20 +12,18 @@ const TimersList = () => {
             {timers ?
                 <>
                     <ul className={s.list}>
-                        {timers.map(({ id, name, sum }) =>
+                        {timers.map(({ id, name, totalTimeSum, typeTimer }) =>
                             <li key={id} className={s.items}>
-                                <Link
-                                    to={`/timers/${id}`}
-                                    className={s.link}
-                                    // state={{ from: location }}
+                                <TimerTypeDefinition
+                                    id={id}
+                                    typeTimer={typeTimer}
                                 >
-                                    {name}/
-                                    {sum}
-                                </Link>
+                                    {name ? name : 'Timer'}<br/>{totalTimeSum} / {typeTimer}
+                                </TimerTypeDefinition>
                             </li>
                         )}
                     </ul>
-                    <Link to={`/`} > Home </Link>
+                    <Link to={`/`}> Home </Link>
                 </>
                 :
                 <h1>555</h1>

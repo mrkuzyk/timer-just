@@ -6,22 +6,24 @@ import s from './createSingleTimer.module.scss';
 
 const CreateSingleTimer = () => {
     const [timers, setTimers] = useState(() => JSON.parse(localStorage.getItem('timers')) ?? []); // лінива ініціалізація
-    const [tempTimer, setTempTimer] = useState('')
+    const [disposableTimer, setDisposableTimer] = useState(''); // тут зберігається одноразові дані для переоду на створений таймер
+
+    const [saveTimer, setSaveTimer] = useState(false); // чи потрібно зберігати таймер
+    const [startTimer, setStartTimer] = useState(false); // для переходу на створений таймер
+    const [typeTimer] = useState('single');
+
     const [name, setName] = useState('');
     const [hours, setHours] = useState('');
     const [minutes, setMinutes] = useState('');
     const [seconds, setSeconds] = useState('');
-    const [startTimer, setStartTimer] = useState(false);
+    
     const [home, setHome] = useState('');
-    const [sum, setSum] = useState('');
-    const [saveTimer, setSaveTimer] = useState(false);
-    // console.log('set', saveTimer)
-
+    const [totalTimeSum, setTotalTimeSum] = useState(''); //загальна сума часу
+    
     const handleChange = e => {
         const { name, value } = e.currentTarget; // отримую значення з інпуту
 
-        // записую введені дані 
-        switch (name) {
+        switch (name) { // записую введені дані 
             case 'name':
                 setName(value);
                 break;
@@ -37,10 +39,6 @@ const CreateSingleTimer = () => {
             case 'seconds':
                 setSeconds(value);
                 break;
-
-            case 'saveTimer':
-                setSaveTimer(value);
-                break;
         
             default:
                 break;
@@ -48,39 +46,35 @@ const CreateSingleTimer = () => {
     };
 
     const handleSave = e => {
-        setSaveTimer(prevState => !prevState)
+        setSaveTimer(prevState => !prevState) // якщо натиснути чекбокс "зберегти"
     };
 
     useEffect(() => {
         const timeSum = getTimeSum(seconds, minutes, hours);
-        setSum(timeSum);
+        setTotalTimeSum(timeSum);
     },[hours, minutes, seconds]);
 
-    useEffect(() => {
-        // записую в локал сторедж таймери
+    useEffect(() => { // записую в локал сторедж таймери
         window.localStorage.setItem('timers', JSON.stringify(timers))
     }, [timers]);
     
-    useEffect(() => {
-        // записую в локал сторедж тимчасовий таймер
-        window.localStorage.setItem('tempTimer', JSON.stringify(tempTimer))
-    }, [tempTimer]);
+    useEffect(() => { // записую в локал сторедж одноразовий таймер
+        window.localStorage.setItem('single', JSON.stringify(disposableTimer))
+    }, [disposableTimer]);
 
     const handleCreate = e => {
         e.preventDefault();
 
         const timer = {
             id: nanoid(6),
+            typeTimer,
             name,
-            sum,
+            totalTimeSum,
         }
 
-        if(saveTimer){
-        // додаю новий таймер
-        setTimers(prevState => [...timers, timer]);
-        };
+        if (saveTimer) { setTimers(prevState => [...timers, timer]) }; // якщо потрібно то додаю новий таймер до всіх
 
-        setTempTimer(timer);
+        setDisposableTimer(timer); // додаю таймер в одноразовий сторедж
         setStartTimer(true);
         reset();
     };
@@ -91,7 +85,7 @@ const CreateSingleTimer = () => {
         setHours('');
         setMinutes('');
         setSeconds('');
-        setSum('');
+        setTotalTimeSum('');
     };
 
     const homes = () => {
@@ -100,7 +94,7 @@ const CreateSingleTimer = () => {
 
     return (
         <>
-            {startTimer && <Navigate to={`/one-time/${tempTimer.id}`} replace={true} />}
+            {startTimer && <Navigate to={`/timers/single`} replace={true} />}
             {home && <Navigate to={`/`} replace={true} />}
             <form onSubmit={handleCreate} className={s.form}>
                 <div className={s.inputBox}>
@@ -114,7 +108,6 @@ const CreateSingleTimer = () => {
                                 placeholder="Timer name"
                                 className={s.inputName}
                                 title="Введіть ім'я таймера"
-                                required
                             />
                         </label>
                     </div>
@@ -169,11 +162,9 @@ const CreateSingleTimer = () => {
                 </label>
                 <div className={s.btnBox}>
                     <button type="button" onClick={homes}>Home</button>
-                    {sum !== 0 && <button type="submit" className={s.button}>Створити</button>}
-                    {/* {sum !== 0 && <button type="submit" className={s.button} onClick={handleCreate}>Створити</button>} */}
+                    {totalTimeSum !== 0 && <button type="submit" className={s.button}>Створити</button>}
                 </div>
             </form>
-            <h2>{ hours} - {minutes} - {seconds} - {sum} </h2>
         </>
     );
 };

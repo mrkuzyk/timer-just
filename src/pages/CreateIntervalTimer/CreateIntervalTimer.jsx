@@ -4,11 +4,15 @@ import { nanoid } from 'nanoid';
 import { getTimeSum } from 'helpers';
 import s from './createIntervalTimer.module.scss';
 
-const Experiment = () => {
-    const [timers, setTimers] = useState(() => JSON.parse(localStorage.getItem('exp')) ?? []); // лінива ініціалізація
-    const [tempTimer, setTempTimer] = useState('')
-    const [name, setName] = useState('');
+const CreateIntervalTimer = () => {
+    const [timers, setTimers] = useState(() => JSON.parse(localStorage.getItem('timers')) ?? []); // лінива ініціалізація
+    const [disposableTimer, setDisposableTimer] = useState('');
 
+    const [saveTimer, setSaveTimer] = useState(false);
+    const [startTimer, setStartTimer] = useState(false);
+    const [typeTimer] = useState('interval');
+
+    const [name, setName] = useState('');
     const [workHours, setWorkHours] = useState('');
     const [workMinutes, setWorkMinutes] = useState('');
     const [workSeconds, setWorkSeconds] = useState('');
@@ -16,18 +20,14 @@ const Experiment = () => {
     const [restMinutes, setRestMinutes] = useState('');
     const [restSeconds, setRestSeconds] = useState('');
 
-    const [startTimer, setStartTimer] = useState(false);
     const [home, setHome] = useState('');
     const [workSum, setWorkSum] = useState('');
     const [restSum, setRestSum] = useState('');
 
-    // console.log(restSum);
-
     const handleChange = e => {
         const { name, value } = e.currentTarget; // отримую значення з інпуту
 
-        // записую введені дані 
-        switch (name) {
+        switch (name) {  // записую введені дані 
             case 'name':
                 setName(value);
                 break;
@@ -61,47 +61,37 @@ const Experiment = () => {
         };
     };
 
-    useEffect(() => {
+    const handleSave = e => {
+        setSaveTimer(prevState => !prevState) // якщо натиснути чекбокс "зберегти"
+    };
+
+    useEffect(() => { 
         const timeSum = getTimeSum( workSeconds, workMinutes, workHours );
         setWorkSum(timeSum);
     }, [workSeconds, workMinutes, workHours]);
 
-    useEffect(() => {
+    useEffect(() => { 
         const timeRestSum = getTimeSum( restSeconds, restMinutes, restHours );
         setRestSum(timeRestSum);
     },[restSeconds, restMinutes, restHours])
-
-    const handleSave = e => {
-        e.preventDefault();
-
-        const timer = {
-            id: nanoid(6),
-            name,
-            workSum,
-            restSum
-        }
-
-        // додаю новий таймер
-        setTimers(prevState => [...timers, timer])
-        reset();
-    }
 
     const handleCreate = (e) => {
         e.preventDefault();
 
         const timer = {
             id: nanoid(6),
+            typeTimer,
             name,
             workSum,
             restSum
-        }
+        };
 
-        // додаю таймер в сторедж
-        setTempTimer(timer)
-        setStartTimer(true)
+        if (saveTimer) { setTimers(prevState => [...timers, timer]) }; // якщо потрібно то додаю новий таймер до всіх
+        
+        setDisposableTimer(timer) // додаю таймер в одноразовий сторедж
+        setStartTimer(true) // 
         reset();
-
-    }
+    };
 
     const reset = () => {
         // очищую імпути
@@ -116,15 +106,13 @@ const Experiment = () => {
         setRestSum('');
     };
 
-    useEffect(() => {
-        // записую в локал сторедж контакти
-        window.localStorage.setItem('exp', JSON.stringify(timers))
+    useEffect(() => { // записую в локал сторедж таймери
+        window.localStorage.setItem('timers', JSON.stringify(timers))
     }, [timers])
     
-    useEffect(() => {
-        // записую в локал сторедж контакти
-        window.localStorage.setItem('tempTimerExp', JSON.stringify(tempTimer))
-    },[tempTimer])
+    useEffect(() => { // записую в локал сторедж одноразовий таймер
+        window.localStorage.setItem('interval', JSON.stringify(disposableTimer))
+    },[disposableTimer])
 
     const homes = () => {
         setHome(true);
@@ -132,9 +120,9 @@ const Experiment = () => {
 
     return (
         <>
-            {startTimer && <Navigate to={`/exp/${tempTimer.id}`} replace={true} />}
+            {startTimer && <Navigate to={`/timers/interval`} replace={true} />}
             {home && <Navigate to={`/`} replace={true} />}
-            <form onSubmit={handleSave} className={s.form}>
+            <form onSubmit={handleCreate} className={s.form}>
                 <div className={s.inputBox}>
                     <div>
                         <label>
@@ -146,7 +134,6 @@ const Experiment = () => {
                                 placeholder="Timer name"
                                 className={s.inputName}
                                 title="Введіть ім'я таймера"
-                                required
                             />
                         </label>
                     </div>
@@ -234,14 +221,21 @@ const Experiment = () => {
                         />
                     </label>
                 </div>
+                <label> Зберегти
+                    <input 
+                        type="checkbox"
+                        name="handleChange"
+                        checked={saveTimer}
+                        onChange={handleSave }
+                    />
+                </label>
                 <div className={s.btnBox}>
                     <button type="button" onClick={homes}>Home</button>
-                    {workSum !== 0 && <button type="submit" className={s.button}>Зберегти</button>}
-                    {workSum !== 0 && <button type="submit" className={s.button} onClick={handleCreate}>Створити</button>}
+                    {workSum !== 0 && <button type="submit" className={s.button}>Створити</button>}
                 </div>
             </form>
         </>
     );
 };
 
-export default Experiment;
+export default CreateIntervalTimer;

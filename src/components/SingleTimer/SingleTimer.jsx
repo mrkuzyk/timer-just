@@ -1,59 +1,55 @@
 import { useEffect, useState, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { addLeadingZero, getTimeUnits } from 'helpers';
-import s from './oneTimer.module.scss'
+import s from './singleTimer.module.scss'
 
-const OneTimer = () => {
-    const [timers] = useState(() => JSON.parse(localStorage.getItem('timers'))); // лінива ініціалізація
-    const { id } = useParams();
-    const [time, setTime] = useState('');
+const SingleTimer = ({data}) => {
+    const [timer, setTimer] = useState({});
+    
+    const [runTimer, setRunTimer] = useState(false);
+    
     const [name, setName] = useState('');
+    const [time, setTime] = useState('');
     const [hours, setHours] = useState('');
     const [minutes, setMinutes] = useState('');
     const [seconds, setSeconds] = useState('');
-    const [runTimer, setRunTimer] = useState(false);
     
     const intervalId = useRef(null);
-    // console.log(intervalId);
+
+    useEffect(() => { setTimer(data) }, [data]);
 
     useEffect(() => {
-        const availableId = timers.find(timer => timer.id === id);
-
-        if (availableId) {
-            setName(availableId.name);
-            setTime(availableId.sum);
-        }
-
-    }, [id, timers])
+        timer.name ? setName(timer.name) : setName('Timer');
+        setTime(timer.totalTimeSum); // витягую суму часу
+    }, [data, timer]);
     
     useEffect(() => {
         const { hours, minutes, seconds } = getTimeUnits(time); // дістаю одиниці часу
         setHours(hours);
         setMinutes(minutes);
         setSeconds(seconds);
-    }, [time])
+    }, [time]);
 
     useEffect(() => {
-        if (!runTimer) return;
+        if (!runTimer) return; // забороняю запуск одразу при завантаженні 
         intervalId.current = setInterval(() => {
-        setTime(state => state - 1)
+            setTime(state => state - 1); // запускаю таймер
         }, 1000);
-    }, [runTimer])
+    }, [runTimer]);
+
+    useEffect(() => {
+        if (time === 0) stopTimer(); // зупинка тамера коли закінчився час
+    }, [time]);
 
     const startTimer = () => {
-        setRunTimer(true);
+        setRunTimer(true); 
     };
 
     const stopTimer = () => {
         clearInterval(intervalId.current);
         setRunTimer(false);
-    }
+    };
 
-    useEffect(() => {
-        if (time === 0) stopTimer();
-    }, [time])
-
-    // console.log(hours);
     return (
         <div>
             {name
@@ -77,4 +73,4 @@ const OneTimer = () => {
     );
 };
 
-export default OneTimer;
+export default SingleTimer;
