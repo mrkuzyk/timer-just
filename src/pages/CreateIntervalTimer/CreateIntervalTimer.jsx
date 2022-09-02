@@ -19,6 +19,7 @@ const CreateIntervalTimer = () => {
     const [restHours, setRestHours] = useState('');
     const [restMinutes, setRestMinutes] = useState('');
     const [restSeconds, setRestSeconds] = useState('');
+    const [numbOfRepeat, setNumbOfRepeat] = useState('');
 
     const [home, setHome] = useState('');
     const [workSum, setWorkSum] = useState('');
@@ -55,6 +56,10 @@ const CreateIntervalTimer = () => {
             case 'restSeconds':
                 setRestSeconds(value);
                 break;
+            
+            case 'repeat':
+                setNumbOfRepeat(Number(value));
+                break;
         
             default:
                 break;
@@ -83,7 +88,8 @@ const CreateIntervalTimer = () => {
             typeTimer,
             name,
             workSum,
-            restSum
+            restSum,
+            numbOfRepeat
         };
 
         if (saveTimer) { setTimers(prevState => [...timers, timer]) }; // якщо потрібно то додаю новий таймер до всіх
@@ -104,6 +110,7 @@ const CreateIntervalTimer = () => {
         setRestSeconds('');
         setWorkSum('');
         setRestSum('');
+        setNumbOfRepeat('');
     };
 
     useEffect(() => { // записую в локал сторедж таймери
@@ -221,6 +228,19 @@ const CreateIntervalTimer = () => {
                         />
                     </label>
                 </div>
+                <label> Кількість повторів 
+                    <input 
+                        type="number" 
+                        name="repeat"
+                        value={numbOfRepeat}
+                        min="0"
+                        max="99"
+                        onChange={handleChange}
+                        placeholder="0"
+                        className={s.input}
+                        title="Кількість повторів"
+                    />
+                </label>
                 <label> Зберегти
                     <input 
                         type="checkbox"

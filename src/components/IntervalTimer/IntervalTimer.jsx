@@ -16,6 +16,7 @@ const IntervalTimer = ({data}) => {
     const [restHours, setRestHours] = useState('');
     const [restMinutes, setRestMinutes] = useState('');
     const [restSeconds, setRestSeconds] = useState('');
+    const [numbOfRepeat, setNumbOfRepeat] = useState(0);
 
     const [applyWorkTimer, setApplyWorkTimer] = useState(false);
     const [applyRestTimer, setApplyRestTimer] = useState(false);
@@ -28,10 +29,12 @@ const IntervalTimer = ({data}) => {
     }, [data]);
 
     useEffect(() => {
-        setTimeWork(timer.workSum); // отримую суму часу роботи
-        setTimeRest(timer.restSum); // отримую суму часу відпочинку
-        timer.name ? setName(timer.name) : setName('Timer');
-    }, [timer.name, timer.restSum, timer.workSum])
+        const { workSum, restSum, numbOfRepeat, name } = timer;
+        setTimeWork(workSum); // отримую суму часу роботи
+        setTimeRest(restSum); // отримую суму часу відпочинку
+        setNumbOfRepeat(numbOfRepeat); // отримую кількість повторів 
+        name ? setName(name) : setName('Timer');
+    }, [timer])
     
     useEffect(() => {
         const { hours, minutes, seconds } = getTimeUnits(timeWork); // дістаю одиниці часу для роботи
@@ -73,9 +76,16 @@ const IntervalTimer = ({data}) => {
     }, [applyRestTimer])
 
     useEffect(() => {
-        if (timeRest === 0) { stopTimer() };
+        if (timeRest === 0) { stopTimer() };  // автоматична зупинка відпочинку, при заваршені часу
+        // if (numbOfRepeat !== 0) { setNumbOfRepeat(state => state - 1) }; // запускаю наступне коло
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeRest]);
+
+    // useEffect(() => {
+    //     if (condition) {
+            
+    //     }
+    // })
 
     const startTimer = () => {
         if (timeWork !== 0) { setApplyWorkTimer(true) }; // якщо є робочий час то тільки тоді можна запустити його і не дозволяю йти в мінус
@@ -104,6 +114,7 @@ const IntervalTimer = ({data}) => {
                         <p className={s.time} >{restMinutes} </p>
                         <p className={s.time} >{restSeconds} </p>
                     </div>
+                    {numbOfRepeat && <p className={s.time} >{numbOfRepeat} </p>}
                     <p >{name} </p>
                     {!timerIsRunning &&  <button type='button' onClick={startTimer}>start</button>}
                     {timerIsRunning &&  <button type='button' onClick={stopTimer}>pause</button>}
