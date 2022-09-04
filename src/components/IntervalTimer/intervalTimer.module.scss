@@ -5,7 +5,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .time {
@@ -24,6 +23,11 @@
     margin-left: 3px;
 
     border: 1px solid black;
+}
+
+.times {
+    composes: time;
+    color: transparent;
 }
 
 .link {
