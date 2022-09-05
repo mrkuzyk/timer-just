@@ -1,0 +1,25 @@
+@use '../../style/colors.scss' as color;
+@use '../../style/mixin.scss' as mixin;
+
+.btn{
+    text-decoration: none;
+
+    width: 100px;
+    height: 30px;
+    
+    padding: 10px 25px;
+    margin: 0;
+    @include mixin.jcc;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.16;
+
+    border: 1px solid transparent;
+    border-radius: 5%;
+
+    color: color.$lightPrimaryText;
+
+    background-color: color.$button;
+}

@@ -47,3 +47,9 @@
         @content;
     }
 }
+
+@mixin jcc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
