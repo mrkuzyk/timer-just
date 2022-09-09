@@ -90,7 +90,7 @@ const CreateSingleTimer = () => {
     };
 
     return (
-        <>
+        <div className={s.container}>
             {startTimer && <Navigate to={`/timers/single`} replace={true} />}
 
             <div className={s.btnBox}>
@@ -98,22 +98,22 @@ const CreateSingleTimer = () => {
                 <ButtonHome/>
             </div>
             <form onSubmit={handleCreate} className={s.form}>
-                <div className={s.inputBox}>
-                    <div className={s.timerNameBox}>
-                        <label className={s.timerName}> Ім'я таймера <sup className={s.sup}>(необов'язково)</sup> 
-                            <input 
-                                type="text" 
-                                name="name"
-                                value={name}
-                                onChange={handleChange}
-                                placeholder="Наприклад: Спринт"
-                                className={s.inputName}
-                                title="Введіть ім'я таймера"
-                            />
-                        </label>
-                    </div>
+                <div className={s.timerNameBox}>
+                    <label className={s.timerName}> Ім'я таймера <sup className={s.timerNameSup}>(необов'язково)</sup> 
+                        <input 
+                            type="text" 
+                            name="name"
+                            value={name}
+                            onChange={handleChange}
+                            placeholder="Наприклад: Спринт"
+                            className={s.timerNameInput}
+                            title="Введіть ім'я таймера"
+                        />
+                    </label>
+                </div>
+                <div className={s.timeBox}>
                     <p className={s.timeTittle}>Час таймера</p>
-                    <div className={s.timeBox}>
+                    <div className={s.timeNumbBox}>
                         <label className={s.timeLabel}> години
                             <input 
                                 type="number" 
@@ -127,7 +127,6 @@ const CreateSingleTimer = () => {
                                 className={s.input}
                                 title="Години"
                             />
-                            {/* <span className={s.inputTimeBox}></span> */}
                         </label>
                         <label className={s.timeLabel}>хвилини
                             <input 
@@ -141,7 +140,6 @@ const CreateSingleTimer = () => {
                                 className={s.input}
                                 title="Хвилини"
                             />
-                            {/* <span className={s.inputTimeBox}></span> */}
                         </label>
                         <label className={s.timeLabel}> секунди
                             <input 
@@ -155,24 +153,23 @@ const CreateSingleTimer = () => {
                                 className={s.input}
                                 title="Секунди"
                             />
-                            {/* <span className={s.inputTimeBox}> { seconds ? seconds : '00'}</span> */}
                         </label>
                     </div>
                 </div>
-                <label className={s.saveLabel}> Зберегти
-                    <input 
-                        type="checkbox"
-                        name="handleChange"
-                        checked={saveTimer}
-                        onChange={handleSave }
-                        className={s.saveInput}
-                    />
-                </label>
-                {/* <div className={s.btnBox}> */}
-                    {totalTimeSum !== 0 && <button type="submit" className={s.button}>Створити</button>}
-                {/* </div> */}
+                <div className={s.saveBox}>
+                    <label className={s.saveLabel}> Зберегти
+                        <input 
+                            type="checkbox"
+                            name="handleChange"
+                            checked={saveTimer}
+                            onChange={handleSave }
+                            className={s.saveInput}
+                        />
+                    </label>
+                </div>
+                {totalTimeSum !== 0 && <button type="submit" className={s.button}>Створити</button>}
             </form>
-        </>
+        </div>  
     );
 };
 

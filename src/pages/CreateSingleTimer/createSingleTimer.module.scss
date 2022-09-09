@@ -1,8 +1,21 @@
 @use '../../style/mixin.scss' as mixin;
 @use '../../style/colors.scss' as color;
 
+.container{
+    @include mixin.container;
+
+    @include mixin.tablet{
+        padding-top: 10px;
+    }
+
+    @include mixin.laptop{
+        padding-top: 20px;
+        width: 70%;
+    }
+}
+
 .btnBox{
-    padding: 5px;
+    padding: 10px;
     margin-top: 0;
 
     display: flex;
@@ -11,18 +24,30 @@
 }
 
 .form {
-    padding: 5px;
-    margin-top: 90px;
+    padding: 10px;
+    margin-top: 70px;
 }
 
 // .inputBox {}
 
 .timerNameBox {
-    width: 100%;
+    background-color: color.$lightBoxBack;
+    border-radius: 7px;
+    padding: 10px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.35);
+
+    @include mixin.tablet{
+        padding: 20px;
+    }
+
+    margin: 10e;
+    // @include mixin.laptop{
+    //     width: 50%;
+    //     margin: 0 auto;
+    // }
 }
 
 .timerName{
-    width: 100%;
     font-style: normal;
     font-weight: 300;
     font-size: 17px;
@@ -30,13 +55,13 @@
     color: color.$lightPrimaryText;
 }
 
-.sup{
+.timerNameSup{
     composes: timerName;
     font-weight: 300;
     font-size: 11px;
 }
 
-.inputName {
+.timerNameInput {
     width: 97%;
     height: 35px;
 
@@ -44,7 +69,7 @@
     font-weight: 400;
     font-size: 16px;
     color: color.$lightPrimaryText;
-    background-color: color.$lightInputBack;
+    background-color: color.$lightBackground;
 
     border: 1px solid transparent;
 
@@ -52,21 +77,37 @@
     margin-top: 15px;
 }
 
-.timeTittle{
-    composes: timerName;
+.timeBox{
     margin-top: 50px;
-    margin-bottom: 0;
+
+    background-color: color.$lightBoxBack;
+    border-radius: 7px;
+    padding: 10px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.35);
+
+    @include mixin.tablet{
+        padding: 20px;
+    }
+
+    // @include mixin.laptop{
+    //     width: 50%;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    // }
 }
 
-.timeBox{
+.timeTittle{
+    composes: timerName;
+    margin: 0;
+}
+
+.timeNumbBox{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 
     margin: 15px 0 0;
-
-    // border: 1px solid black;
 }
 
 .timeLabel{
@@ -81,6 +122,14 @@
     // padding: 5px 10px 10px;
     &:not(:first-child) {
         margin-left: 10px;
+    }
+
+    @include mixin.tablet{
+        width: 100px;
+
+        &:not(:first-child) {
+            margin-left: 20px;
+        }
     }
 }
 
@@ -98,26 +147,37 @@
     margin-top: 5px;
 
     border: 1px solid transparent;
-    background-color: color.$lightInputBack;
+    background-color: color.$lightBackground;
     // border: 1px solid color.$button;
 
     text-align: center;
+
+    @include mixin.tablet{
+        width: 75px;
+        height: 60px;
+    }
+}
+
+.saveBox{
+    margin-top: 40px;
+    padding: 10px;
+    text-align: end;
 }
 
 .saveLabel{
-    display: block;
+    padding: 5px 10px;
 
     font-style: normal;
     font-weight: 400;
     font-size: 17px;
     line-height: 1.27;
+
     color: color.$lightPrimaryText;
+    background-color: color.$lightBoxBack;
 
-    text-align: end;
+    border-radius: 7px;
 
-    margin-top: 30px;
-    padding: 5px;
-}
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.35);}
 
 .saveInput{
     width: 20px;

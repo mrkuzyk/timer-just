@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 const Home = lazy(() => import('pages/Home'));
 
-const CreateTimer = lazy(() => import('pages/CreatedTimer'));
+const CreateTimer = lazy(() => import('pages/CreatedTimers'));
 const CreateSingleTimer = lazy(() => import('pages/CreateSingleTimer'));
 const CreateIntervalTimer = lazy(() => import('pages/CreateIntervalTimer'));
 
