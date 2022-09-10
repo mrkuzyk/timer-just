@@ -99,7 +99,7 @@ const CreateSingleTimer = () => {
             </div>
             <form onSubmit={handleCreate} className={s.form}>
                 <div className={s.timerNameBox}>
-                    <label className={s.timerName}> Ім'я таймера <sup className={s.timerNameSup}>(необов'язково)</sup> 
+                    <label className={s.timerName}> Ім'я для таймера <sup className={s.timerNameSup}>(необов'язково)</sup> 
                         <input 
                             type="text" 
                             name="name"
