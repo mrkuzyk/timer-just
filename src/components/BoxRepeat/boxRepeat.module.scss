@@ -1,0 +1,68 @@
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
+
+.repeatBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin-top: 50px;
+    padding: 10px;
+
+    background-color: color.$lightBoxBack;
+    border-radius: 7px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.35);
+
+    @include mixin.tablet {
+        padding: 20px;
+    }
+}
+
+.repeatLabel {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.27;
+    color: color.$lightPrimaryText;
+
+    // width: 90px;
+    // display: inline-flex;
+    // flex-direction: column;
+    // align-items: center;
+
+    // padding: 5px 10px 10px;
+
+    // @include mixin.tablet {
+    //   width: 100px;
+
+    //   &:not(:first-child) {
+    //     margin-left: 20px;
+    //   }
+    // }
+}
+
+.repeatSpan {
+    position: relative;
+    top: -10px;
+}
+
+.repeatInput {
+    width: 60px;
+    height: 20px;
+
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-size: 35px;
+
+    color: color.$lightPrimaryText;
+
+    padding: 10px;
+    margin-top: 5px;
+
+    border: 1px solid transparent;
+
+    // @include mixin.tablet {
+    //   width: 75px;
+    //   height: 60px;
+    // }
+}
