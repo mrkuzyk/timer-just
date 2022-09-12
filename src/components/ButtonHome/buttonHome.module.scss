@@ -17,9 +17,14 @@
     line-height: 1.16;
 
     border: 1px solid transparent;
-    border-radius: 5%;
+    border-radius: 10px;
 
     color: color.$lightPrimaryText;
 
     background-color: color.$button;
+
+    &:hover,
+    &:focus{
+        background-color: color.$buttonAccent;
+    }
 }

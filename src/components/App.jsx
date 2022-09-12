@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from 'react-router-dom';
 import useWindowWidth from "hooks";
+import NoTimerListPage from "./NoTimerListPage";
 
 const Home = lazy(() => import('pages/Home'));
 
@@ -42,6 +43,8 @@ export const App = () => {
           <Route path='timers/single/:id' element={<SavedSingleTimer />} />
           <Route path='timers/interval' element={<DisposableIntervalTimer />} />
           <Route path='timers/interval/:id' element={<SavedIntervalTimer />} />
+
+          <Route path='login' element={<NoTimerListPage />} />
           
           <Route path='*' element={<Home />} />
         </Routes>
