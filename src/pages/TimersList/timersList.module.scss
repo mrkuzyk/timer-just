@@ -1,21 +1,91 @@
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
+
+.container {
+    @include mixin.container;
+    padding: 10px;
+
+    @include mixin.laptop{
+        width: 25%;
+
+        margin-left: 10px;
+        padding-top: 10px;    
+
+        display: flex;
+        flex-direction: column;
+        
+        border-right: 7px solid color.$lightBoxBack;
+    }
+}
+
+.btn {
+    text-decoration: none;
+
+    width: 100px;
+    height: 30px;
+
+    padding: 10px 25px;
+    margin: 0;
+    @include mixin.jcc;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.16;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    color: color.$lightPrimaryText;
+
+    background-color: color.$button;
+
+    &:hover,
+    &:focus {
+        background-color: color.$buttonAccent;
+    }
+}
+
 .list{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    margin-top: 30px;
+
+    @include mixin.tablet {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    @include mixin.laptop{
+        margin-top: 10px;
+        flex-direction: column;
+    }
 }
 
 .items{
-    width: 99%;
-    height: fit-content;
+    list-style: none;
+    margin: 15px 0 0;
 
-    // display: flex;
-    // justify-content: space-around;
-    // align-items: center;
+    &:first-child{
+        margin-top: 0;
+    }
 
-    
-    margin-top: 5px;
+    @include mixin.tablet {
+        width: 45%;
+        margin-top: 25px;
 
-    border: 1px solid black;
+        &:nth-child(2) {
+            margin-top: 0;
+        }
+    }
+
+    @include mixin.laptop{
+        width: 96%;
+        font-size: 20px;
+        margin-top: 10px;
+
+        &:nth-child(2){
+            margin-top: 10px;
+        }
+    }
 }
 

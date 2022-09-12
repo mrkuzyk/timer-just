@@ -1,14 +1,19 @@
+import NoTimerListPage from "components/NoTimerListPage";
 import TimerTypeDefinition from "components/TimerTypeDefinition";
+import useWindowWidth from "hooks";
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import s from './timersList.module.scss';
 
 const TimersList = () => {
     const [timers] = useState(() => JSON.parse(localStorage.getItem('timers')));
+    const windowWidth = useWindowWidth();
+    // console.log(timers.length);
 
     return (
-        <div>
-            {timers ?
+        <div className={s.container}>
+            {windowWidth < 1024 && <NavLink to='/' className={s.btn} > Назад </NavLink>}
+            {timers.length > 0 ?
                 <>
                     <ul className={s.list}>
                         {timers.map(({ id, name, totalTimeSum, typeTimer }) =>
@@ -22,10 +27,9 @@ const TimersList = () => {
                             </li>
                         )}
                     </ul>
-                    <Link to={`/`}> Home </Link>
                 </>
                 :
-                <h1>555</h1>
+                <NoTimerListPage/>
             }
         </div>
     );

@@ -1,10 +1,35 @@
-.link {
-    width: 100%;
-    height: 30px;
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
 
-    padding: 10px 0;
+.navLink {
+    text-decoration: none;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 10px;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 23px;
+    line-height: 1.2;
+
+    @include mixin.jcc;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    color: color.$lightPrimaryText;
+    background-color: color.$lightBoxBack;
+
+    @include mixin.tablet {
+        padding: 25px;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: color.$buttonAccent;
+    }
+}
+
+.active{
+    background-color: color.$buttonAccent;
+    color: color.$darkPrimaryText;
 }
