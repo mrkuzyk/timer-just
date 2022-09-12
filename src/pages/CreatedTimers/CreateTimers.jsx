@@ -1,31 +1,66 @@
-import { NavLink } from 'react-router-dom';
+import useWindowWidth from 'hooks';
+import { useEffect, useState } from 'react';
+import { Navigate, NavLink, Outlet } from 'react-router-dom';
 import s from './createTimers.module.scss';
 
 const CreateTimers = () => {
+    const [firstRender, setFirstRender] = useState(true);
+    const windowWidth = useWindowWidth();
+
+    useEffect(() => {
+        if (firstRender) {
+            setFirstRender(false);
+        };
+    },[firstRender]);
+    
     return (
-        <div 
-            className={s.container}
-        >
-            <NavLink
-                to='/create/simple'
-                className={s.navLink}
-            >
-                Простий таймер
-            </NavLink>
-            <NavLink
-                to='/create/interval'
-                className={s.navLink}
-            >
-                Інтервальний таймер
-            </NavLink>
-            <h2>Шаблони</h2>
-            <NavLink
-                to='/box'
-                className={s.navLink}
-            >
-                Бокс
-            </NavLink>
-        </div>
+        <>
+            <div className={s.container}>
+                <div className={s.mainCreate}>
+                    {firstRender && windowWidth > 1023 && <Navigate to='simple'/>}
+                    <NavLink
+                        to='simple'
+                        className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    >
+                        Простий таймер
+                    </NavLink>
+                    <NavLink
+                        to='interval'
+                        className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    >
+                        Інтервальний таймер
+                    </NavLink>
+                    <NavLink
+                        to='stopwatch'
+                        className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    >
+                        Секундомір
+                    </NavLink>
+                </div>
+                <h2 className={s.title}>Шаблони</h2>
+                <div className={s.templateCreate}>
+                    <NavLink
+                        to='/box'
+                        className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    >
+                        Бокс
+                    </NavLink>
+                    <NavLink
+                        to='/mma'
+                        className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    >
+                        MMA
+                    </NavLink>
+                    <NavLink
+                        to='/football'
+                        className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    >
+                        Футбол
+                    </NavLink>
+                    </div>
+            </div>
+            <Outlet />
+        </>
     );
 }
 

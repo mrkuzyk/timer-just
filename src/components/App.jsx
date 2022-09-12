@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from 'react-router-dom';
+import useWindowWidth from "hooks";
 
 const Home = lazy(() => import('pages/Home'));
 
@@ -13,8 +14,8 @@ const SavedSingleTimer = lazy(() => import('pages/SavedSingleTimer'));
 const DisposableIntervalTimer = lazy(() => import('pages/DisposableIntervalTimer'));
 const SavedIntervalTimer = lazy(() => import('pages/SavedIntervalTimer'));
 
-
 export const App = () => {
+  const windowWidth = useWindowWidth();
 
   return (
     <>
@@ -22,9 +23,19 @@ export const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
 
-          <Route path='create' element={<CreateTimer />} />
-          <Route path='/create/simple' element={<CreateSingleTimer />} />
-          <Route path='/create/interval' element={<CreateIntervalTimer />} />
+          {windowWidth < 1023
+            ?
+          <>
+            <Route path='create' element={<CreateTimer />}/>
+            <Route path='create/simple' element={<CreateSingleTimer />} />
+            <Route path='create/interval' element={<CreateIntervalTimer />} />
+          </>
+            :
+          <Route path='create' element={<CreateTimer />}>
+            <Route path='simple' element={<CreateSingleTimer />} />
+            <Route path='interval' element={<CreateIntervalTimer />} />
+          </Route>
+          }
 
           <Route path='timers' element={<TimersList />} />
           <Route path='timers/single' element={<DisposableSingleTimer />} />

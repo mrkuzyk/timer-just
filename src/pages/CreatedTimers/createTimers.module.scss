@@ -1,26 +1,109 @@
 @use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
 
 .container {
     @include mixin.container;
     padding-top: 75px;
     padding-bottom: 25px;
+    margin-bottom: 50px;
 
+    @include mixin.jcc;
+    flex-direction: column;
+
+    @include mixin.laptop{
+        width: 25%;
+        justify-content: start;
+        padding-top: 25px;
+        margin-left: 10px;
+        border-right: 7px solid color.$lightBoxBack;
+    }
+}
+
+.mainCreate{
+    width: 96%;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
-    // @include mixin.tablet {
-    //     flex-direction: row-reverse;
-    // }
+    @include mixin.tablet {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    @include mixin.laptop{
+        flex-direction: column;
+    }
 }
 
 .navLink {
-    border: 1px solid black;
+    text-decoration: none;
 
-    text-align: center;
-    text-transform: uppercase;
-
-    width: 100%;
+    margin: 10px 0 0;
     padding: 30px 0;
 
+    font-style: normal;
+    font-weight: 300;
+    font-size: 23px;
+    line-height: 1.2;
+
+    @include mixin.jcc;
+    text-align: center;
+
+    border: 1px solid transparent;
+    border-radius: 10px;;
+
+    color: color.$lightPrimaryText;
+    background-color: color.$lightBoxBack;
+
+    &:first-child{
+        margin-top: 0;
+    }
+
+    @include mixin.tablet {
+        width: 45%;
+        margin-top: 25px;
+
+        &:nth-child(2){
+            margin-top: 0;
+        }
+    }
+
+    @include mixin.laptop{
+        width: 96%;
+        font-size: 20px;
+        margin-top: 10px;
+
+        &:nth-child(2){
+            margin-top: 10px;
+        }
+    }
+
+    &:hover,
+    &:focus{
+        background-color: color.$buttonAccent;
+    }
+}
+
+.active{
+    background-color: color.$buttonAccent;
+    color: color.$darkPrimaryText;
+}
+
+.title{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    margin: 100px 0 20px;
+
+    @include mixin.laptop{
+        font-size: 22px;
+    }
+}
+
+.templateCreate{
+    composes: mainCreate;
 }
