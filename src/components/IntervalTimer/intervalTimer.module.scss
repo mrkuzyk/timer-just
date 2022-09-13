@@ -1,42 +1,124 @@
-.box {
-    width: 100%;
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
+
+.container {
+    @include mixin.container;
+    padding: 10px;
+
+    // @include mixin.tablet {
+    //     padding-top: 10px;
+    //     margin-bottom: 100px;
+    // }
+
+    @include mixin.laptop {
+        padding-top: 20px;
+        width: 70%;
+        margin-bottom: 200px;
+    }
+}
+
+.btn {
+    text-decoration: none;
+
+    width: 100px;
+    height: 30px;
+
+    padding: 10px 25px;
+    margin: 0;
+    @include mixin.jcc;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.16;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    color: color.$lightPrimaryText;
+
+    background-color: color.$button;
+
+    &:hover,
+    &:focus {
+        background-color: color.$buttonAccent;
+    }
+}
+
+.titleName {
+    margin: 75px 0 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 1.16;
+
+    @include mixin.laptop {
+        font-size: 44px;
+    }
+}
+
+.boxTime {
     margin: 0;
 
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .time {
-    width: 100px;
-    height: 100px;
+    width: 30%;
 
-    font-weight: 300;
-    font-size: 90px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 25px 0 0 5px;
 
     text-align: center;
-    margin-top: 30px;
-    margin-left: 3px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 90px;
+    line-height: 1.16;
 
-    border: 1px solid black;
+    color: color.$lightPrimaryText;
+    background-color: color.$lightBoxBack;
+
+    border-radius: 10px;
+
+    @include mixin.laptop {
+        margin-top: 75px;
+        font-size: 120px;
+    }
 }
 
-.times {
-    composes: time;
-    color: transparent;
-}
+.button {
+    display: block;
 
-.link {
-    width: 100%;
-    height: 30px;
+    padding: 10px 25px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    @include mixin.jcc;
 
-    padding: 10px 0;
+    font-family: 'Roboto Slab', serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.16;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    color: color.$lightPrimaryText;
+    background-color: color.$button;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        background-color: color.$buttonAccent;
+    }
+
+    @include mixin.laptop {
+        margin-top: 100px;
+        width: 150px;
+        height: 60px;
+        padding: 0;
+    }
 }

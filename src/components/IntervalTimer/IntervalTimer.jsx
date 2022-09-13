@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { addLeadingZero, getTimeUnits } from 'helpers';
 import s from './intervalTimer.module.scss';
+import useWindowWidth from 'hooks';
 
 const IntervalTimer = ({data}) => {
     const [timer, setTimer] = useState({});
@@ -24,6 +25,7 @@ const IntervalTimer = ({data}) => {
 
     const intervalId = useRef(null);
     const timerIsRunning = applyWorkTimer || applyRestTimer;
+    const windowWidth = useWindowWidth();
 
     useEffect(() => {
         setTimer(data)
@@ -122,18 +124,19 @@ const IntervalTimer = ({data}) => {
     };
 
     return (
-        <div>
+        <div className={s.container}>
+            <NavLink to={windowWidth < 1024 ? '/timers' : '/'} className={s.btn} > Назад </NavLink>
             {timer
                 ?
                 <>
-                    <h2>{name} </h2>
-                    {applyWorkTimer &&
-                        <div className={s.box}>
+                    <h2 className={s.titleName}>{name} </h2>
+                    {/* {applyWorkTimer && */}
+                        <div className={s.boxTime}>
                             {workHours !== addLeadingZero(0) && <p className={s.time} >{workHours} </p>}
                             <p className={s.time} >{workMinutes} </p>
                             <p className={s.time} >{workSeconds} </p>
                         </div>
-                    }
+                    {/* } */}
                     {applyRestTimer &&
                         <div className={s.box}>
                             {restHours !== addLeadingZero(0) && <p className={s.time} >{restHours} </p>}
@@ -141,22 +144,20 @@ const IntervalTimer = ({data}) => {
                             <p className={s.time} >{restSeconds} </p>
                         </div>
                     }
-                    {!applyRestTimer && !applyWorkTimer &&
-                        <div className={s.box}>
-                            {restHours !== addLeadingZero(0) && <p className={s.times} >00 </p>}
-                            <p className={s.times} >00 </p>
-                            <p className={s.times} >00 </p>
+                    {/* {!applyRestTimer && !applyWorkTimer &&
+                        <div className={s.boxTime}>
+                            {restHours !== addLeadingZero(0) && <p className={s.time} >00 </p>}
+                            <p className={s.time} >00 </p>
+                            <p className={s.time} >00 </p>
                         </div>
-                    }
-                    {numbOfRepeat && <p className={s.time} >{numbOfRepeat} </p>}
-                    <p >{name} </p>
-                    {!timerIsRunning &&  <button type='button' onClick={startTimer}>start</button>}
-                    {timerIsRunning &&  <button type='button' onClick={stopTimer}>pause</button>}
+                    } */}
+                    {/* {numbOfRepeat && <p className={s.time} >{numbOfRepeat} </p>} */}
+                    {!timerIsRunning &&  <button type='button' onClick={startTimer} className={s.button}>Старт</button>}
+                    {timerIsRunning &&  <button type='button' onClick={stopTimer} className={s.button}>Пауза</button>}
                 </>
                 :
                 <h1>НЕМА</h1>
             }
-            <Link to={`/home`} className={s.link}> home </Link>
         </div>
     );
 };

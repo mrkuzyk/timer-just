@@ -26,23 +26,29 @@ export const App = () => {
 
           {windowWidth < 1023
             ?
-          <>
-            <Route path='create' element={<CreateTimer />}/>
-            <Route path='create/simple' element={<CreateSingleTimer />} />
-            <Route path='create/interval' element={<CreateIntervalTimer />} />
-          </>
+            <>
+              <Route path='create' element={<CreateTimer />}/>
+              <Route path='create/simple' element={<CreateSingleTimer />} />
+              <Route path='create/interval' element={<CreateIntervalTimer />} />
+              <Route path='timers' element={<TimersList />} />
+              <Route path='timers/single/:id' element={<SavedSingleTimer />} />
+              <Route path='timers/interval/:id' element={<SavedIntervalTimer />} />
+            </>
             :
-          <Route path='create' element={<CreateTimer />}>
-            <Route path='simple' element={<CreateSingleTimer />} />
-            <Route path='interval' element={<CreateIntervalTimer />} />
-          </Route>
+            <>
+              <Route path='create' element={<CreateTimer />}>
+                <Route path='simple' element={<CreateSingleTimer />} />
+                <Route path='interval' element={<CreateIntervalTimer />} />
+              </Route>
+              <Route path='timers' element={<TimersList />}>
+                <Route path='single/:id' element={<SavedSingleTimer />} />
+                <Route path='interval/:id' element={<SavedIntervalTimer />} />
+              </Route>
+            </>
           }
-
-          <Route path='timers' element={<TimersList />} />
+          
           <Route path='timers/single' element={<DisposableSingleTimer />} />
-          <Route path='timers/single/:id' element={<SavedSingleTimer />} />
           <Route path='timers/interval' element={<DisposableIntervalTimer />} />
-          <Route path='timers/interval/:id' element={<SavedIntervalTimer />} />
 
           <Route path='login' element={<NoTimerListPage />} />
           

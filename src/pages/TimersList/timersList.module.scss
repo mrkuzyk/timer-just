@@ -6,7 +6,7 @@
     padding: 10px;
 
     @include mixin.laptop{
-        width: 25%;
+        width: 25%; 
 
         margin-left: 10px;
         padding-top: 10px;    
@@ -47,7 +47,7 @@
 }
 
 .list{
-    margin-top: 30px;
+    margin-top: 30px 0 0;
 
     @include mixin.tablet {
         display: flex;
@@ -79,7 +79,7 @@
     }
 
     @include mixin.laptop{
-        width: 96%;
+        width: 100%;
         font-size: 20px;
         margin-top: 10px;
 
