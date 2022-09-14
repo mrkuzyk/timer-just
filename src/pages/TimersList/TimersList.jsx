@@ -9,7 +9,6 @@ const TimersList = () => {
     const [timers] = useState(() => JSON.parse(localStorage.getItem('timers')));
     const [firstRender, setFirstRender] = useState(true);
 
-    console.log(timers);
     const windowWidth = useWindowWidth();
     const {typeTimer, id} = timers[0];
 

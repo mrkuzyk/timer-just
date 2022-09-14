@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from 'react-router-dom';
 import useWindowWidth from "hooks";
 import NoTimerListPage from "./NoTimerListPage";
+import NotFoundPage from "./NotFoundPage";
 
 const Home = lazy(() => import('pages/Home'));
 
@@ -52,7 +53,7 @@ export const App = () => {
 
           <Route path='login' element={<NoTimerListPage />} />
           
-          <Route path='*' element={<Home />} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </>

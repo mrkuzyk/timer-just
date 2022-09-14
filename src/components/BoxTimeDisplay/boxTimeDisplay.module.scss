@@ -1,0 +1,31 @@
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
+
+.boxTime {
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+}
+
+.time {
+    width: 30%;
+
+    margin: 25px 0 0 5px;
+
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 90px;
+    line-height: 1.16;
+
+    color: color.$lightPrimaryText;
+    background-color: color.$lightBoxBack;
+
+    border-radius: 10px;
+
+    @include mixin.laptop {
+        margin-top: 75px;
+        font-size: 120px;
+    }
+}
