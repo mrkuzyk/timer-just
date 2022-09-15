@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { addLeadingZero, getTimeUnits } from 'helpers';
+import { NavLink } from 'react-router-dom';
+import { getTimeUnits } from 'helpers';
 import s from './singleTimer.module.scss'
+import useWindowWidth from 'hooks';
+import BoxTimeDisplay from 'components/BoxTimeDisplay';
+import NotFoundPage from 'components/NotFoundPage';
 
 const SingleTimer = ({data}) => {
     const [timer, setTimer] = useState({});
@@ -14,6 +17,7 @@ const SingleTimer = ({data}) => {
     const [minutes, setMinutes] = useState('');
     const [seconds, setSeconds] = useState('');
     
+    const windowWidth = useWindowWidth();
     const intervalId = useRef(null);
 
     useEffect(() => { setTimer(data) }, [data]);
@@ -51,26 +55,27 @@ const SingleTimer = ({data}) => {
     };
 
     return (
-        <div>
-            {name
+        <div className={s.container}>
+            {timer
                 ?
                 <>
-                    <h2>{name} </h2>
-                    <div className={s.box}>
-                        {hours !== addLeadingZero(0) && <p className={s.time} >{hours} </p>}
-                        <p className={s.time} >{minutes} </p>
-                        <p className={s.time} >{seconds} </p>
-                    </div>
-                    {!runTimer && <button type='button' onClick={startTimer}>start</button>}
-                    {runTimer && <button type='button' onClick={stopTimer}>pause</button>}
+                    <NavLink to={windowWidth < 1024 ? '/timers' : '/'} className={s.btn} > Назад </NavLink>
+                    <h2 className={s.titleName}>{name} </h2>
+                    <BoxTimeDisplay
+                        hours={hours}
+                        minutes={minutes}
+                        seconds={seconds}
+                    />
+                    {!runTimer && <button type='button' onClick={startTimer} className={s.button}>start</button>}
+                    {runTimer && <button type='button' onClick={stopTimer} className={s.button}>pause</button>}
                 </>
                 :
-                <h1>НЕМА</h1>
+                <NotFoundPage/>
             }
-            <Link to={`/timers`} className={s.link}> Timers </Link>
-            <Link to={`/home`} className={s.link}> home </Link>
         </div>
     );
 };
 
 export default SingleTimer;
+
+//! PropTypes
