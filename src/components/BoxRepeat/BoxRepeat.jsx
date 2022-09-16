@@ -14,7 +14,7 @@ const BoxRepeat = ({value, onChange}) => {
                 min="0"
                 max="99"
                 onChange={onChange}
-                placeholder="0"
+                placeholder="1"
                 className={s.repeatInput}
                 title="Кількість повторів"
                 id='repeatInput'

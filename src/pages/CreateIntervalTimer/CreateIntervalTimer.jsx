@@ -26,7 +26,7 @@ const CreateIntervalTimer = () => {
     const [restHours, setRestHours] = useState('');
     const [restMinutes, setRestMinutes] = useState('');
     const [restSeconds, setRestSeconds] = useState('');
-    const [numbOfRepeat, setNumbOfRepeat] = useState('');
+    const [numbOfRepeat, setNumbOfRepeat] = useState(1);
 
     const [workSum, setWorkSum] = useState('');
     const [restSum, setRestSum] = useState('');
@@ -116,7 +116,7 @@ const CreateIntervalTimer = () => {
         setRestSeconds('');
         setWorkSum('');
         setRestSum('');
-        setNumbOfRepeat('');
+        setNumbOfRepeat(1);
     };
 
     useEffect(() => { // записую в локал сторедж таймери

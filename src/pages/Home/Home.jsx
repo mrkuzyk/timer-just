@@ -4,7 +4,7 @@ import s from './home.module.scss';
 const Home = () => {
     return (
         <div className={s.container} >
-            <NavLink to='/' className={s.navLink}> Головна </NavLink>
+            {/* <NavLink to='/' className={s.navLink}> Головна </NavLink> */}
             <NavLink to='/create' className={s.navLink} > Створити таймер </NavLink>
             <NavLink to='/timers' className={s.navLink} > Збережені таймери </NavLink>
             <NavLink to='/login' className={s.navLink} > Увійти </NavLink>
