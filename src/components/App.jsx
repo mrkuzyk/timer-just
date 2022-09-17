@@ -6,7 +6,7 @@ import NotFoundPage from "./NotFoundPage";
 
 const Home = lazy(() => import('pages/Home'));
 
-const CreateTimer = lazy(() => import('pages/CreatedTimers'));
+const CreateTimers = lazy(() => import('pages/CreateTimers'));
 const CreateSingleTimer = lazy(() => import('pages/CreateSingleTimer'));
 const CreateIntervalTimer = lazy(() => import('pages/CreateIntervalTimer'));
 
@@ -28,7 +28,7 @@ export const App = () => {
           {windowWidth < 1023
             ?
             <>
-              <Route path='create' element={<CreateTimer />}/>
+              <Route path='create' element={<CreateTimers />}/>
               <Route path='create/simple' element={<CreateSingleTimer />} />
               <Route path='create/interval' element={<CreateIntervalTimer />} />
               <Route path='timers' element={<TimersList />} />
@@ -37,7 +37,7 @@ export const App = () => {
             </>
             :
             <>
-              <Route path='create' element={<CreateTimer />}>
+              <Route path='create' element={<CreateTimers />}>
                 <Route path='simple' element={<CreateSingleTimer />} />
                 <Route path='interval' element={<CreateIntervalTimer />} />
               </Route>
