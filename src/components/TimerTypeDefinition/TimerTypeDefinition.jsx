@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import s from './timerTypeDefinition.module.scss'
 
-const TimerTypeDefinition = ({typeTimer , id, children}) => {
+const TimerTypeDefinition = ({ typeTimer, id, children }) => {
     return (
         <>
             {typeTimer === 'single' &&

@@ -1,11 +1,12 @@
 import useWindowWidth from 'hooks';
 import { useEffect, useState } from 'react';
-import { Navigate, NavLink, Outlet } from 'react-router-dom';
+import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom';
 import s from './createTimers.module.scss';
 
 const CreateTimers = () => {
     const [firstRender, setFirstRender] = useState(true);
     const windowWidth = useWindowWidth();
+    const {pathname} = useLocation();
 
     useEffect(() => {
         if (firstRender) {
@@ -17,7 +18,7 @@ const CreateTimers = () => {
         <>
             <div className={s.container}>
                 <div className={s.mainCreate}>
-                    {firstRender && windowWidth > 1023 && <Navigate to='simple'/>}
+                    { firstRender && windowWidth > 1023 && pathname === '/create' && <Navigate to='simple'/>}
                     <NavLink
                         to='simple'
                         className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
