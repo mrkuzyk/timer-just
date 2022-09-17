@@ -35,6 +35,6 @@
     &:hover,
     &:focus{
         background-color: color.$button;
-        cursor: auto;
+        cursor: not-allowed;
     }
 }
