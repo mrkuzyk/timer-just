@@ -1,0 +1,27 @@
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
+
+.boxSavedList{
+
+}
+
+.list {
+    margin: 10px 0 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.items {
+    width: 100%;
+    list-style: none;
+    margin: 10px 0 0;
+
+    font-size: 20px;
+
+    &:first-child {
+        margin-top: 20px;
+    }
+}

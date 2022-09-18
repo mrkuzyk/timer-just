@@ -1,25 +1,15 @@
-// $colors: (
-//     'button': #9e9e9e,
-//     'buttonAccent': #607D8B,
-//     'lightBackground': #FAFAFA,
-//     'lightPrimaryText': #000000,
-//     'darkBackground': #212121,
-//     'darkPrimaryText': #F5F5F5,
 
-// );
+$button: #BDBDBD;
+$buttonAccent: #607D8B;
+$buttonDisabled: #EEEEEE;
 
-// @function getColor($key) {
-//     @return map-get($colors, $key);
-// };
+// $lightInputBack: #E0E0E0;
+$lightBoxBack: #E0E0E0;
+$lightBackground: #FAFAFA;
+$lightPrimaryText: #161616;
 
-    $button: #BDBDBD;
-    $buttonAccent: #607D8B;
-    $buttonDisabled: #EEEEEE;
+$darkBackground: #212121;
+$darkPrimaryText: #F5F5F5;
 
-    // $lightInputBack: #E0E0E0;
-    $lightBoxBack: #E0E0E0;
-    $lightBackground: #FAFAFA;
-    $lightPrimaryText: #161616;
-
-    $darkBackground: #212121;
-    $darkPrimaryText: #F5F5F5;
+$warBackground: #F4511E;
+$warBackgroundSecond: #6D4C41;

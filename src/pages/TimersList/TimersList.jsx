@@ -31,6 +31,7 @@ const TimersList = () => {
                                     <TimerTypeDefinition
                                         id={id}
                                         typeTimer={typeTimer}
+                                        page={'list'}
                                     >
                                         {name ? name : 'Timer'}<br/>{totalTimeSum} / {typeTimer}
                                     </TimerTypeDefinition>

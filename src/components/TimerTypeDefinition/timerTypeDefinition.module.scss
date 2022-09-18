@@ -33,3 +33,8 @@
     background-color: color.$buttonAccent;
     color: color.$darkPrimaryText;
 }
+
+.homeList{
+    composes: navLink;
+    background-color: color.$lightBackground;
+}

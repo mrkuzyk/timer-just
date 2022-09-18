@@ -3,20 +3,76 @@
 
 .container {
     @include mixin.container;
-    padding-top: 75px;
+    padding-top: 35px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    // @include mixin.tablet {
-    //     flex-direction: row-reverse;
-    // }
+    @include mixin.laptop {
+        flex-direction: row;
+        // align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 35px;
+    }
+}
+
+.boxAuthorization{
+    width: 95%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mixin.mobile {
+        justify-content: end;
+    }
+
+    @include mixin.laptop {
+        align-self: center;
+        order: -2;
+
+        
+    }
+}
+
+.authorization{
+    text-decoration: none;
+
+    padding: 10px 25px;
+
+    @include mixin.jcc;
+
+    font-family: 'Roboto Slab', serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.16;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    color: color.$lightPrimaryText;
+    background-color: color.$button;
+
+    &:hover,
+    &:focus{
+        background-color: color.$buttonAccent;
+    }
+
+    @include mixin.mobile {
+        margin-left: 25px;
+
+        &:first-child{
+            margin-left: 0;
+        }
+    }
 }
 
 .boxCreate{
     width: 95%;
 
+    margin: 50px 0 0;
     padding: 10px 0;
 
     display: flex;
@@ -28,6 +84,12 @@
 
     background-color: color.$lightBoxBack;
     
+    @include mixin.laptop {
+        width: 65%;
+        // display: inline-block;
+        // align-self: flex-end;
+        margin: 50px 0 0 50px;
+    }
 }
 
 .createTitle{
@@ -40,26 +102,15 @@
 
 .boxCreateTimer{
     width: 100%;
-    // padding: 20px;
-    // position: relative;
-    // overflow: hidden;
 }
 
 .createList{
-    // width: 100%;
-    // display: flex;
-    // white-space: nowrap;
-    // overflow: hidden;
     margin: 30px 0 0;
 
     display: inline-block;
     overflow-x: auto;
-    // overflow: auto;
-    // overflow-y: hidden;
     width: 100%;
-    // margin: 0 0 1em;
     white-space: nowrap;
-
 }
 
 .createItems{
@@ -76,7 +127,7 @@
     vertical-align: top;
 
     &:last-child{
-        margin-right: 10px;;
+        margin-right: 10px;
     }
 }
 
@@ -98,10 +149,101 @@
     font-weight: 300;
     font-size: 16px;
     line-height: 1.16;
+
+    &:hover,
+    &:focus{
+        background-color: color.$buttonAccent;
+    }
 }
 
 .createSpan{
     font-weight: 200;
     font-size: 70px;
     padding-bottom: 40px;
+}
+
+.box{
+    margin: 50px 0 0;
+    width: 95%;
+    // max-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mixin.mobile{
+        align-items: flex-start;
+    }
+}
+
+.saved {
+    text-decoration: none;
+
+    width: 100%;
+    height: 100px;
+
+    // padding: 10px;
+    // margin: 50px 0 0;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 23px;
+    line-height: 1.2;
+    // margin: 20px 0 0;
+
+    @include mixin.jcc;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    color: color.$lightPrimaryText;
+    background-color: color.$lightBoxBack;
+
+    @include mixin.mobile{
+        width: 48%;
+        font-size: 20px;
+    }
+
+    @include mixin.tablet {
+        height: 148px;
+    }
+
+    @include mixin.laptop {
+        height: 148px;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: color.$buttonAccent;
+    }
+}
+
+.boxSaved{
+    width: 25%;
+    height: 600px;
+    order: -1;
+
+    overflow-y: auto;
+
+    margin: 50px 0 0 0;
+    padding: 15px;    
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background-color: color.$lightBoxBack;
+}
+
+.savedTitle{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 23px;
+    line-height: 1.2;
+    text-align: center;
+    margin: 20px 0 0;
+}
+
+.boxWar{
+    // width: 60%;
+// align-self: flex-end;
+    // order: 1;
 }

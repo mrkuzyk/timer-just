@@ -1,13 +1,19 @@
 import { NavLink } from "react-router-dom";
 import s from './timerTypeDefinition.module.scss'
 
-const TimerTypeDefinition = ({ typeTimer, id, children }) => {
+const TimerTypeDefinition = ({ page, typeTimer, id, children }) => {
+    console.log(page === 'list');
     return (
         <>
             {typeTimer === 'single' &&
                 <NavLink
                     to={`/timers/single/${id}`}
-                    className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    className={ page === 'list'
+                        ?
+                        ({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink
+                        :
+                        s.homeList
+                    }
                     // state={{ from: location }}
                 >
                     {children}
@@ -16,7 +22,12 @@ const TimerTypeDefinition = ({ typeTimer, id, children }) => {
             {typeTimer === 'interval' &&
                 <NavLink
                     to={`/timers/interval/${id}`}
-                    className={({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink}
+                    className={page === 'list'
+                        ?
+                        ({ isActive }) => isActive ? `${s.active} ${s.navLink}` : s.navLink
+                        :
+                        s.homeList
+                    }
                 >
                     {children}
                 </NavLink>

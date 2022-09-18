@@ -1,0 +1,96 @@
+@use '../../style/mixin.scss' as mixin;
+@use '../../style/colors.scss' as color;
+
+.boxWar{
+    // width: 60%;
+
+    // align-self: flex-end;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 5px;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background-color: color.$warBackground;
+
+    @include mixin.laptop {
+        height: 148px;
+        margin: 50px 0 0 50px;
+    }
+}
+
+.title{
+    text-align: center;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+
+    margin: 0;
+
+    @include mixin.laptop {
+        padding: 10px 0;
+    }
+
+    // color: ;
+}
+
+.boxWarTime{
+    background-color: color.$lightBackground;
+    width: 100%;
+
+    @include mixin.jcc;
+    flex-direction: column;
+
+    border-radius: 10px;
+}
+
+.day {
+    width: 100%;
+
+    display: block;
+
+    margin: 0;
+
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.24;
+    letter-spacing: 10px;
+}
+
+.span{
+    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: 0;
+}
+
+.boxTime{
+    width: 100%;
+    @include mixin.jcc;
+
+    border-top: 2px solid #000;
+}
+
+.time{
+    margin: 0 0 0 10px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.24;
+
+    display: flex;
+    align-items: center;
+}
+
+.spanTime{
+    margin: 0 0 0 10px;
+    font-size: 20px;
+}
