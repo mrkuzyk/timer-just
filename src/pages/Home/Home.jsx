@@ -64,12 +64,9 @@ const Home = () => {
                         <h2 className={s.savedTitle}>Збережені таймери</h2>
                         <HomeTimerList/>
                     </div>
-                    <div className={s.boxWar}>
                         <WarTime />
-                    </div>
                 </>
             }
-            <WarTime />
         </div>
     );
 }

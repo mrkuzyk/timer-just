@@ -1,6 +1,5 @@
 @mixin container {
     width: 100%;
-    // max-width: 479px;
     margin: 0 auto;
 
     @media screen and (min-width: 480px) {
