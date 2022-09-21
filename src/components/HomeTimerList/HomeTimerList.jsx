@@ -9,7 +9,7 @@ const HomeTimerList = () => {
     return (
         
         <div className={s.boxSavedList}>
-            {timers.length > 0 ?
+            {timers?.length > 0 ?
                 <>
                     <ul className={s.list}>
                         {timers.map(({ id, name, totalTimeSum, typeTimer }) =>
