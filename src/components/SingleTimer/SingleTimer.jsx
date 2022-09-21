@@ -4,7 +4,7 @@ import { getTimeUnits } from 'helpers';
 import s from './singleTimer.module.scss'
 import useWindowWidth from 'hooks';
 import BoxTimeDisplay from 'components/BoxTimeDisplay';
-import NotFoundPage from 'components/NotFoundPage';
+import { NotFoundPage } from 'components/PagesMessage';
 
 const SingleTimer = ({data}) => {
     const [timer, setTimer] = useState({});

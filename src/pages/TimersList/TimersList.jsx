@@ -1,4 +1,5 @@
-import NoTimerListPage from "components/NoTimerListPage";
+
+import { NoTimerListPage } from "components/PagesMessage";
 import TimerTypeDefinition from "components/TimerTypeDefinition";
 import useWindowWidth from "hooks";
 import { useState, useEffect } from "react";

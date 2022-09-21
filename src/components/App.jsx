@@ -1,8 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from 'react-router-dom';
 import useWindowWidth from "hooks";
-import NoTimerListPage from "./NoTimerListPage";
-import NotFoundPage from "./NotFoundPage";
+import {NotFoundPage, NoTimerListPage} from "components/PagesMessage";
 
 const Home = lazy(() => import('pages/Home'));
 

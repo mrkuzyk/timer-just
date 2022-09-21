@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import s from './noTimerListPage.module.scss';
+import s from './style.module.scss';
 
 const NoTimerListPage = () => {
     return (
         <div className={s.container}>
-            <NavLink to='/' className={s.btn} > Назад </NavLink>
+            <NavLink to='/' className={s.button} > Назад </NavLink>
             {/* <h1 className={s.tittle}>У тебе немає жодного збереженого таймера</h1> */}
-            <h1 className={s.info}>
+            <h1 className={s.title}>
                 <NavLink
                     to='/login'
-                    className={s.infoAccent}
+                    className={s.titleAccent}
                 >
                     Увійди 
                 </NavLink>

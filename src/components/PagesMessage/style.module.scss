@@ -6,7 +6,11 @@
     padding: 10px;
 }
 
-.btn {
+.containerHome{
+    margin: 0;
+}
+
+.button {
     text-decoration: none;
 
     width: 100px;
@@ -29,12 +33,12 @@
     background-color: color.$button;
 
     &:hover,
-    &:focus{
+    &:focus {
         background-color: color.$buttonAccent;
     }
 }
 
-.info{
+.title {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -52,12 +56,55 @@
     }
 }
 
-.infoAccent{
+.titleHome{
+    text-align: center;
+
+    font-style: normal;
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 1.16;
+
+    padding: 10px;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+
+    color: color.$lightPrimaryText;
+}
+
+.titleAccent {
     font-weight: 300;
     text-decoration: none;
     color: color.$buttonAccent;
 }
 
-.text{
+.text {
     margin: 10px 0 0;
+}
+
+.center {
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.info {
+    text-align: center;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 34px;
+    line-height: 1.16;
+    color: color.$lightPrimaryText;
+
+    @include mixin.tablet {
+        font-size: 40px;
+    }
+
+    @include mixin.laptop {
+        font-size: 44px;
+    }
 }

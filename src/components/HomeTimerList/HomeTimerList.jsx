@@ -1,4 +1,4 @@
-import NoTimerListPage from "components/NoTimerListPage";
+import { NoTimerListHome } from "components/PagesMessage";
 import TimerTypeDefinition from "components/TimerTypeDefinition";
 import { useState } from "react";
 import s from './homeTimerList.module.scss';
@@ -26,7 +26,7 @@ const HomeTimerList = () => {
                     </ul>
                 </>
                 :
-                <NoTimerListPage />
+                <NoTimerListHome />
             }
         </div>
     );
