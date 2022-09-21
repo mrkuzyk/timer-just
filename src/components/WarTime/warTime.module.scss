@@ -61,7 +61,7 @@
 }
 
 .day {
-    width: 100%;
+    width: 100px;
 
     display: block;
 
@@ -75,6 +75,7 @@
     letter-spacing: 10px;
 
     @include mixin.laptop {
+        width: 200px;
         padding: 15px 0;
         font-size: 60px;
     }
@@ -102,7 +103,9 @@
 }
 
 .time{
-    margin: 0 0 0 10px;
+    width: 40px;
+
+    margin: 0 0 0 15px;
 
     font-style: normal;
     font-weight: 400;
@@ -112,7 +115,16 @@
     display: flex;
     align-items: center;
 
+    &:first-child{
+        margin: 0;
+    }
+
+    @include mixin.tablet {
+        width: 50px;    
+    }
+
     @include mixin.laptop {
+        width: 80px;
         font-size: 50px;
     }
 }
