@@ -1,6 +1,7 @@
 
 import { NoTimerListPage } from "components/PagesMessage";
 import TimerTypeDefinition from "components/TimerTypeDefinition";
+import { pathDefinition } from "helpers";
 import useWindowWidth from "hooks";
 import { useState, useEffect } from "react";
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom';
@@ -18,15 +19,14 @@ const TimersList = () => {
         };
     }, [firstRender]);
     
-    const {typeTimer, id} = timers[0];
-    const path = pathname !== '/timers' ? pathname : `/timers/${typeTimer}/${id}`;
+    const path = pathDefinition({timers, pathname});
 
     return (
         <>
-            <div className={s.container}>
-                {windowWidth < 1024 && <NavLink to='/' className={s.btn} > Назад </NavLink>}
-                {timers.length > 0 ?
+            <div className={timers?.length ? `${s.container} ${s.line}` : s.container}>
+                {timers?.length ?
                     <>
+                        {windowWidth < 1024 && <NavLink to='/' className={s.btn} > Назад </NavLink>}
                         {firstRender && windowWidth > 1023 && <Navigate to={path} />}
                         <ul className={s.list}>
                             {timers.map(({ id, name, totalTimeSum, typeTimer }) =>

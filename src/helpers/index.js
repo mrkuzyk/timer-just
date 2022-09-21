@@ -3,6 +3,7 @@ import getTimeUnits from "./getTimeUnits";
 import addLeadingZero from "./addLeadingZero";
 import getWarTimeUnits from "./getWarTimeUnits";
 import timeDifference from "./timeDifference";
+import pathDefinition from "./pathDefinition";
 
 export {
     getTimeSum,
@@ -10,4 +11,5 @@ export {
     addLeadingZero,
     getWarTimeUnits,
     timeDifference,
+    pathDefinition,
 };
