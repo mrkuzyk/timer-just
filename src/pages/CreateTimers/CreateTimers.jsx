@@ -12,7 +12,7 @@ const CreateTimers = () => {
         if (firstRender) {
             setFirstRender(false);
         };
-    },[firstRender]);
+    }, [firstRender]);
     
     return (
         <>

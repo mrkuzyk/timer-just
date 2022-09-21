@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import s from './timerTypeDefinition.module.scss'
+import s from './timerTypeDefinition.module.scss';
 
 const TimerTypeDefinition = ({ page, typeTimer, id, children }) => {
-    console.log(page === 'list');
+    // в page передаю 1 з двох значень: 'list' - це стилі для сторінки основної з списком, 'home' - для малого списку на головній сторінці
     return (
         <>
             {typeTimer === 'single' &&
@@ -14,7 +14,6 @@ const TimerTypeDefinition = ({ page, typeTimer, id, children }) => {
                         :
                         s.homeList
                     }
-                    // state={{ from: location }}
                 >
                     {children}
                 </NavLink>
@@ -37,3 +36,5 @@ const TimerTypeDefinition = ({ page, typeTimer, id, children }) => {
 };
 
 export default TimerTypeDefinition;
+
+//! PropType
